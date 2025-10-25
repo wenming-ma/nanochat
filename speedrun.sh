@@ -91,47 +91,47 @@ fi
 echo "Waiting for dataset download to complete..."
 wait $DATASET_DOWNLOAD_PID
 
-# pretrain the d20 model
-torchrun --standalone --nproc_per_node=8 -m scripts.base_train -- --depth=20 --run=$WANDB_RUN
-# evaluate the model on a larger chunk of train/val data and draw some samples
-torchrun --standalone --nproc_per_node=8 -m scripts.base_loss
-# evaluate the model on CORE tasks
-torchrun --standalone --nproc_per_node=8 -m scripts.base_eval
+# # pretrain the d20 model
+# torchrun --standalone --nproc_per_node=8 -m scripts.base_train -- --depth=20 --run=$WANDB_RUN
+# # evaluate the model on a larger chunk of train/val data and draw some samples
+# torchrun --standalone --nproc_per_node=8 -m scripts.base_loss
+# # evaluate the model on CORE tasks
+# torchrun --standalone --nproc_per_node=8 -m scripts.base_eval
 
-# -----------------------------------------------------------------------------
-# Midtraining (teach the model conversation special tokens, tool use, multiple choice)
+# # -----------------------------------------------------------------------------
+# # Midtraining (teach the model conversation special tokens, tool use, multiple choice)
 
-# download 2.3MB of synthetic identity conversations to impart a personality to nanochat
-# see dev/gen_sft_data.py for details on how this data was prepared and to get a sense of how you can easily tune it
-curl -L -o $NANOCHAT_BASE_DIR/identity_conversations.jsonl https://karpathy-public.s3.us-west-2.amazonaws.com/identity_conversations.jsonl
+# # download 2.3MB of synthetic identity conversations to impart a personality to nanochat
+# # see dev/gen_sft_data.py for details on how this data was prepared and to get a sense of how you can easily tune it
+# curl -L -o $NANOCHAT_BASE_DIR/identity_conversations.jsonl https://karpathy-public.s3.us-west-2.amazonaws.com/identity_conversations.jsonl
 
-# run midtraining and eval the model
-torchrun --standalone --nproc_per_node=8 -m scripts.mid_train -- --run=$WANDB_RUN
-torchrun --standalone --nproc_per_node=8 -m scripts.chat_eval -- -i mid
+# # run midtraining and eval the model
+# torchrun --standalone --nproc_per_node=8 -m scripts.mid_train -- --run=$WANDB_RUN
+# torchrun --standalone --nproc_per_node=8 -m scripts.chat_eval -- -i mid
 
-# -----------------------------------------------------------------------------
-# Supervised Finetuning (domain adaptation to each sequence all by itself per row)
+# # -----------------------------------------------------------------------------
+# # Supervised Finetuning (domain adaptation to each sequence all by itself per row)
 
-# train sft and re-eval right away (should see a small bump)
-torchrun --standalone --nproc_per_node=8 -m scripts.chat_sft -- --run=$WANDB_RUN
-torchrun --standalone --nproc_per_node=8 -m scripts.chat_eval -- -i sft
+# # train sft and re-eval right away (should see a small bump)
+# torchrun --standalone --nproc_per_node=8 -m scripts.chat_sft -- --run=$WANDB_RUN
+# torchrun --standalone --nproc_per_node=8 -m scripts.chat_eval -- -i sft
 
-# chat with the model over CLI! Leave out the -p to chat interactively
-# python -m scripts.chat_cli -p "Why is the sky blue?"
+# # chat with the model over CLI! Leave out the -p to chat interactively
+# # python -m scripts.chat_cli -p "Why is the sky blue?"
 
-# even better, chat with your model over a pretty WebUI ChatGPT style
-# python -m scripts.chat_web
+# # even better, chat with your model over a pretty WebUI ChatGPT style
+# # python -m scripts.chat_web
 
-# -----------------------------------------------------------------------------
-# Reinforcement Learning. Optional, and currently only on GSM8K
-# (optional)
+# # -----------------------------------------------------------------------------
+# # Reinforcement Learning. Optional, and currently only on GSM8K
+# # (optional)
 
-# run reinforcement learning
-# torchrun --standalone --nproc_per_node=8 -m scripts.chat_rl -- --run=$WANDB_RUN
-# eval the RL model only on GSM8K
-# torchrun --standalone --nproc_per_node=8 -m scripts.chat_eval -- -i rl -a GSM8K
+# # run reinforcement learning
+# # torchrun --standalone --nproc_per_node=8 -m scripts.chat_rl -- --run=$WANDB_RUN
+# # eval the RL model only on GSM8K
+# # torchrun --standalone --nproc_per_node=8 -m scripts.chat_eval -- -i rl -a GSM8K
 
-# -----------------------------------------------------------------------------
-# Generate the full report by putting together all the sections
-# report.md is the output and will be copied to current directory for convenience
-python -m nanochat.report generate
+# # -----------------------------------------------------------------------------
+# # Generate the full report by putting together all the sections
+# # report.md is the output and will be copied to current directory for convenience
+# python -m nanochat.report generate

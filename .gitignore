@@ -4,4 +4,6 @@ __pycache__/
 rustbpe/target/
 dev-ignore/
 report.md
+wandb
+*.zip
 

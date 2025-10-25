@@ -26,7 +26,7 @@ print_banner()
 
 # -----------------------------------------------------------------------------
 # User settings
-run = "dummy" # wandb run name default ("dummy" is special - we won't log to wandb)
+run = "nanochat-d20" # wandb run name default ("dummy" is special - we won't log to wandb)
 # Model architecture
 depth = 20 # the depth of the Transformer model to train, rest of the kwargs are derived
 max_seq_len = 1024 # max context length
@@ -43,11 +43,11 @@ weight_decay = 0.0 # weight decay for the embedding/unembedding parameters (Adam
 matrix_lr = 0.02 # learning rate for the matrix parameters (Muon)
 grad_clip = 1.0 # gradient clipping value (0.0 = disabled)
 # Evaluation
-eval_every = 250 # every how many steps to evaluate the model for val bpb
-eval_tokens = 20*524288 # number of tokens to evaluate val loss on
-core_metric_every = 2000 # every how many steps to evaluate the core metric
-core_metric_max_per_task = 500 # examples per task in estimating the core metric
-sample_every = 2000 # every how many steps to sample from the model
+eval_every = 500 # every how many steps to evaluate the model for val bpb (reduced from 250 to save time)
+eval_tokens = 10*524288 # number of tokens to evaluate val loss on (reduced from 20x to save memory)
+core_metric_every = 4000 # every how many steps to evaluate the core metric (reduced frequency)
+core_metric_max_per_task = 250 # examples per task in estimating the core metric (reduced from 500)
+sample_every = 4000 # every how many steps to sample from the model (reduced frequency)
 # Output
 model_tag = "" # optionally override the model tag for the output checkpoint directory name
 # now allow CLI to override the settings via the configurator lol
