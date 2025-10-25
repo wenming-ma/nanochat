@@ -1,0 +1,65 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "Download Dataset (8 shards)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "nanochat.dataset",
+            "args": ["-n", "8"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "Train: Base (Single GPU, d20)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "scripts.base_train",
+            "args": ["--depth=20"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "Train: Base (Single GPU, d26)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "scripts.base_train",
+            "args": ["--depth=26", "--device_batch_size=16"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "Train: Midtraining (Single GPU)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "scripts.mid_train",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "Train: Chat SFT (Single GPU)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "scripts.chat_sft",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        }
+    ]
+}
