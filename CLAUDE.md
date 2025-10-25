@@ -50,11 +50,17 @@ bash run1000.sh
 # Run in screen session with logging
 screen -L -Logfile speedrun.log -S speedrun bash speedrun.sh
 
-# Individual training stages
+# Individual training stages (multi-GPU)
 torchrun --standalone --nproc_per_node=8 -m scripts.base_train -- --depth=20
 torchrun --standalone --nproc_per_node=8 -m scripts.mid_train
 torchrun --standalone --nproc_per_node=8 -m scripts.chat_sft
 torchrun --standalone --nproc_per_node=8 -m scripts.chat_rl  # Optional
+
+# Single GPU training (8x slower, automatic gradient accumulation)
+python -m scripts.base_train --depth=20
+python -m scripts.mid_train
+python -m scripts.chat_sft
+python -m scripts.chat_rl  # Optional
 ```
 
 ### Tokenizer

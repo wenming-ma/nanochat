@@ -1,0 +1,883 @@
+====================================================================================================
+Nanochat Tokenizer Vocabulary
+Total tokens: 65,536
+====================================================================================================
+
+🔖 SPECIAL TOKENS
+----------------------------------------------------------------------------------------------------
+ID  65530: <|assistant_start|>
+ID  65535: <|output_end|>
+ID  65534: <|output_start|>
+ID  65533: <|python_end|>
+ID  65529: <|user_end|>
+ID  65531: <|assistant_end|>
+ID  65528: <|user_start|>
+ID  65532: <|python_start|>
+ID  65527: <|bos|>
+
+📝 SINGLE BYTE TOKENS (0-255)
+----------------------------------------------------------------------------------------------------
+ID      0: '\x00'                (byte:   0 = 0x00)
+ID      1: '\x01'                (byte:   1 = 0x01)
+ID      2: '\x02'                (byte:   2 = 0x02)
+ID      3: '\x03'                (byte:   3 = 0x03)
+ID      4: '\x04'                (byte:   4 = 0x04)
+ID      5: '\x05'                (byte:   5 = 0x05)
+ID      6: '\x06'                (byte:   6 = 0x06)
+ID      7: '\x07'                (byte:   7 = 0x07)
+ID      8: '\x08'                (byte:   8 = 0x08)
+ID      9: '\t'                  (byte:   9 = 0x09)
+ID     10: '\n'                  (byte:  10 = 0x0A)
+ID     11: '\x0b'                (byte:  11 = 0x0B)
+ID     12: '\x0c'                (byte:  12 = 0x0C)
+ID     13: '\r'                  (byte:  13 = 0x0D)
+ID     14: '\x0e'                (byte:  14 = 0x0E)
+ID     15: '\x0f'                (byte:  15 = 0x0F)
+ID     16: '\x10'                (byte:  16 = 0x10)
+ID     17: '\x11'                (byte:  17 = 0x11)
+ID     18: '\x12'                (byte:  18 = 0x12)
+ID     19: '\x13'                (byte:  19 = 0x13)
+ID     20: '\x14'                (byte:  20 = 0x14)
+ID     21: '\x15'                (byte:  21 = 0x15)
+ID     22: '\x16'                (byte:  22 = 0x16)
+ID     23: '\x17'                (byte:  23 = 0x17)
+ID     24: '\x18'                (byte:  24 = 0x18)
+ID     25: '\x19'                (byte:  25 = 0x19)
+ID     26: '\x1a'                (byte:  26 = 0x1A)
+ID     27: '\x1b'                (byte:  27 = 0x1B)
+ID     28: '\x1c'                (byte:  28 = 0x1C)
+ID     29: '\x1d'                (byte:  29 = 0x1D)
+ID     30: '\x1e'                (byte:  30 = 0x1E)
+ID     31: '\x1f'                (byte:  31 = 0x1F)
+ID     32: ' '                   (byte:  32 = 0x20)
+ID     33: !                     (byte:  33 = 0x21)
+ID     34: "                     (byte:  34 = 0x22)
+ID     35: #                     (byte:  35 = 0x23)
+ID     36: $                     (byte:  36 = 0x24)
+ID     37: %                     (byte:  37 = 0x25)
+ID     38: &                     (byte:  38 = 0x26)
+ID     39: '                     (byte:  39 = 0x27)
+ID     40: (                     (byte:  40 = 0x28)
+ID     41: )                     (byte:  41 = 0x29)
+ID     42: *                     (byte:  42 = 0x2A)
+ID     43: +                     (byte:  43 = 0x2B)
+ID     44: ,                     (byte:  44 = 0x2C)
+ID     45: -                     (byte:  45 = 0x2D)
+ID     46: .                     (byte:  46 = 0x2E)
+ID     47: /                     (byte:  47 = 0x2F)
+ID     48: 0                     (byte:  48 = 0x30)
+ID     49: 1                     (byte:  49 = 0x31)
+ID     50: 2                     (byte:  50 = 0x32)
+ID     51: 3                     (byte:  51 = 0x33)
+ID     52: 4                     (byte:  52 = 0x34)
+ID     53: 5                     (byte:  53 = 0x35)
+ID     54: 6                     (byte:  54 = 0x36)
+ID     55: 7                     (byte:  55 = 0x37)
+ID     56: 8                     (byte:  56 = 0x38)
+ID     57: 9                     (byte:  57 = 0x39)
+ID     58: :                     (byte:  58 = 0x3A)
+ID     59: ;                     (byte:  59 = 0x3B)
+ID     60: <                     (byte:  60 = 0x3C)
+ID     61: =                     (byte:  61 = 0x3D)
+ID     62: >                     (byte:  62 = 0x3E)
+ID     63: ?                     (byte:  63 = 0x3F)
+ID     64: @                     (byte:  64 = 0x40)
+ID     65: A                     (byte:  65 = 0x41)
+ID     66: B                     (byte:  66 = 0x42)
+ID     67: C                     (byte:  67 = 0x43)
+ID     68: D                     (byte:  68 = 0x44)
+ID     69: E                     (byte:  69 = 0x45)
+ID     70: F                     (byte:  70 = 0x46)
+ID     71: G                     (byte:  71 = 0x47)
+ID     72: H                     (byte:  72 = 0x48)
+ID     73: I                     (byte:  73 = 0x49)
+ID     74: J                     (byte:  74 = 0x4A)
+ID     75: K                     (byte:  75 = 0x4B)
+ID     76: L                     (byte:  76 = 0x4C)
+ID     77: M                     (byte:  77 = 0x4D)
+ID     78: N                     (byte:  78 = 0x4E)
+ID     79: O                     (byte:  79 = 0x4F)
+ID     80: P                     (byte:  80 = 0x50)
+ID     81: Q                     (byte:  81 = 0x51)
+ID     82: R                     (byte:  82 = 0x52)
+ID     83: S                     (byte:  83 = 0x53)
+ID     84: T                     (byte:  84 = 0x54)
+ID     85: U                     (byte:  85 = 0x55)
+ID     86: V                     (byte:  86 = 0x56)
+ID     87: W                     (byte:  87 = 0x57)
+ID     88: X                     (byte:  88 = 0x58)
+ID     89: Y                     (byte:  89 = 0x59)
+ID     90: Z                     (byte:  90 = 0x5A)
+ID     91: [                     (byte:  91 = 0x5B)
+ID     92: \                     (byte:  92 = 0x5C)
+ID     93: ]                     (byte:  93 = 0x5D)
+ID     94: ^                     (byte:  94 = 0x5E)
+ID     95: _                     (byte:  95 = 0x5F)
+ID     96: `                     (byte:  96 = 0x60)
+ID     97: a                     (byte:  97 = 0x61)
+ID     98: b                     (byte:  98 = 0x62)
+ID     99: c                     (byte:  99 = 0x63)
+ID    100: d                     (byte: 100 = 0x64)
+ID    101: e                     (byte: 101 = 0x65)
+ID    102: f                     (byte: 102 = 0x66)
+ID    103: g                     (byte: 103 = 0x67)
+ID    104: h                     (byte: 104 = 0x68)
+ID    105: i                     (byte: 105 = 0x69)
+ID    106: j                     (byte: 106 = 0x6A)
+ID    107: k                     (byte: 107 = 0x6B)
+ID    108: l                     (byte: 108 = 0x6C)
+ID    109: m                     (byte: 109 = 0x6D)
+ID    110: n                     (byte: 110 = 0x6E)
+ID    111: o                     (byte: 111 = 0x6F)
+ID    112: p                     (byte: 112 = 0x70)
+ID    113: q                     (byte: 113 = 0x71)
+ID    114: r                     (byte: 114 = 0x72)
+ID    115: s                     (byte: 115 = 0x73)
+ID    116: t                     (byte: 116 = 0x74)
+ID    117: u                     (byte: 117 = 0x75)
+ID    118: v                     (byte: 118 = 0x76)
+ID    119: w                     (byte: 119 = 0x77)
+ID    120: x                     (byte: 120 = 0x78)
+ID    121: y                     (byte: 121 = 0x79)
+ID    122: z                     (byte: 122 = 0x7A)
+ID    123: {                     (byte: 123 = 0x7B)
+ID    124: |                     (byte: 124 = 0x7C)
+ID    125: }                     (byte: 125 = 0x7D)
+ID    126: ~                     (byte: 126 = 0x7E)
+ID    127: '\x7f'                (byte: 127 = 0x7F)
+ID    128: �                     (byte: 128 = 0x80)
+ID    129: �                     (byte: 129 = 0x81)
+ID    130: �                     (byte: 130 = 0x82)
+ID    131: �                     (byte: 131 = 0x83)
+ID    132: �                     (byte: 132 = 0x84)
+ID    133: �                     (byte: 133 = 0x85)
+ID    134: �                     (byte: 134 = 0x86)
+ID    135: �                     (byte: 135 = 0x87)
+ID    136: �                     (byte: 136 = 0x88)
+ID    137: �                     (byte: 137 = 0x89)
+ID    138: �                     (byte: 138 = 0x8A)
+ID    139: �                     (byte: 139 = 0x8B)
+ID    140: �                     (byte: 140 = 0x8C)
+ID    141: �                     (byte: 141 = 0x8D)
+ID    142: �                     (byte: 142 = 0x8E)
+ID    143: �                     (byte: 143 = 0x8F)
+ID    144: �                     (byte: 144 = 0x90)
+ID    145: �                     (byte: 145 = 0x91)
+ID    146: �                     (byte: 146 = 0x92)
+ID    147: �                     (byte: 147 = 0x93)
+ID    148: �                     (byte: 148 = 0x94)
+ID    149: �                     (byte: 149 = 0x95)
+ID    150: �                     (byte: 150 = 0x96)
+ID    151: �                     (byte: 151 = 0x97)
+ID    152: �                     (byte: 152 = 0x98)
+ID    153: �                     (byte: 153 = 0x99)
+ID    154: �                     (byte: 154 = 0x9A)
+ID    155: �                     (byte: 155 = 0x9B)
+ID    156: �                     (byte: 156 = 0x9C)
+ID    157: �                     (byte: 157 = 0x9D)
+ID    158: �                     (byte: 158 = 0x9E)
+ID    159: �                     (byte: 159 = 0x9F)
+ID    160: �                     (byte: 160 = 0xA0)
+ID    161: �                     (byte: 161 = 0xA1)
+ID    162: �                     (byte: 162 = 0xA2)
+ID    163: �                     (byte: 163 = 0xA3)
+ID    164: �                     (byte: 164 = 0xA4)
+ID    165: �                     (byte: 165 = 0xA5)
+ID    166: �                     (byte: 166 = 0xA6)
+ID    167: �                     (byte: 167 = 0xA7)
+ID    168: �                     (byte: 168 = 0xA8)
+ID    169: �                     (byte: 169 = 0xA9)
+ID    170: �                     (byte: 170 = 0xAA)
+ID    171: �                     (byte: 171 = 0xAB)
+ID    172: �                     (byte: 172 = 0xAC)
+ID    173: �                     (byte: 173 = 0xAD)
+ID    174: �                     (byte: 174 = 0xAE)
+ID    175: �                     (byte: 175 = 0xAF)
+ID    176: �                     (byte: 176 = 0xB0)
+ID    177: �                     (byte: 177 = 0xB1)
+ID    178: �                     (byte: 178 = 0xB2)
+ID    179: �                     (byte: 179 = 0xB3)
+ID    180: �                     (byte: 180 = 0xB4)
+ID    181: �                     (byte: 181 = 0xB5)
+ID    182: �                     (byte: 182 = 0xB6)
+ID    183: �                     (byte: 183 = 0xB7)
+ID    184: �                     (byte: 184 = 0xB8)
+ID    185: �                     (byte: 185 = 0xB9)
+ID    186: �                     (byte: 186 = 0xBA)
+ID    187: �                     (byte: 187 = 0xBB)
+ID    188: �                     (byte: 188 = 0xBC)
+ID    189: �                     (byte: 189 = 0xBD)
+ID    190: �                     (byte: 190 = 0xBE)
+ID    191: �                     (byte: 191 = 0xBF)
+ID    192: �                     (byte: 192 = 0xC0)
+ID    193: �                     (byte: 193 = 0xC1)
+ID    194: �                     (byte: 194 = 0xC2)
+ID    195: �                     (byte: 195 = 0xC3)
+ID    196: �                     (byte: 196 = 0xC4)
+ID    197: �                     (byte: 197 = 0xC5)
+ID    198: �                     (byte: 198 = 0xC6)
+ID    199: �                     (byte: 199 = 0xC7)
+ID    200: �                     (byte: 200 = 0xC8)
+ID    201: �                     (byte: 201 = 0xC9)
+ID    202: �                     (byte: 202 = 0xCA)
+ID    203: �                     (byte: 203 = 0xCB)
+ID    204: �                     (byte: 204 = 0xCC)
+ID    205: �                     (byte: 205 = 0xCD)
+ID    206: �                     (byte: 206 = 0xCE)
+ID    207: �                     (byte: 207 = 0xCF)
+ID    208: �                     (byte: 208 = 0xD0)
+ID    209: �                     (byte: 209 = 0xD1)
+ID    210: �                     (byte: 210 = 0xD2)
+ID    211: �                     (byte: 211 = 0xD3)
+ID    212: �                     (byte: 212 = 0xD4)
+ID    213: �                     (byte: 213 = 0xD5)
+ID    214: �                     (byte: 214 = 0xD6)
+ID    215: �                     (byte: 215 = 0xD7)
+ID    216: �                     (byte: 216 = 0xD8)
+ID    217: �                     (byte: 217 = 0xD9)
+ID    218: �                     (byte: 218 = 0xDA)
+ID    219: �                     (byte: 219 = 0xDB)
+ID    220: �                     (byte: 220 = 0xDC)
+ID    221: �                     (byte: 221 = 0xDD)
+ID    222: �                     (byte: 222 = 0xDE)
+ID    223: �                     (byte: 223 = 0xDF)
+ID    224: �                     (byte: 224 = 0xE0)
+ID    225: �                     (byte: 225 = 0xE1)
+ID    226: �                     (byte: 226 = 0xE2)
+ID    227: �                     (byte: 227 = 0xE3)
+ID    228: �                     (byte: 228 = 0xE4)
+ID    229: �                     (byte: 229 = 0xE5)
+ID    230: �                     (byte: 230 = 0xE6)
+ID    231: �                     (byte: 231 = 0xE7)
+ID    232: �                     (byte: 232 = 0xE8)
+ID    233: �                     (byte: 233 = 0xE9)
+ID    234: �                     (byte: 234 = 0xEA)
+ID    235: �                     (byte: 235 = 0xEB)
+ID    236: �                     (byte: 236 = 0xEC)
+ID    237: �                     (byte: 237 = 0xED)
+ID    238: �                     (byte: 238 = 0xEE)
+ID    239: �                     (byte: 239 = 0xEF)
+ID    240: �                     (byte: 240 = 0xF0)
+ID    241: �                     (byte: 241 = 0xF1)
+ID    242: �                     (byte: 242 = 0xF2)
+ID    243: �                     (byte: 243 = 0xF3)
+ID    244: �                     (byte: 244 = 0xF4)
+ID    245: �                     (byte: 245 = 0xF5)
+ID    246: �                     (byte: 246 = 0xF6)
+ID    247: �                     (byte: 247 = 0xF7)
+ID    248: �                     (byte: 248 = 0xF8)
+ID    249: �                     (byte: 249 = 0xF9)
+ID    250: �                     (byte: 250 = 0xFA)
+ID    251: �                     (byte: 251 = 0xFB)
+ID    252: �                     (byte: 252 = 0xFC)
+ID    253: �                     (byte: 253 = 0xFD)
+ID    254: �                     (byte: 254 = 0xFE)
+ID    255: �                     (byte: 255 = 0xFF)
+
+🔤 MERGED TOKENS (256 - 65535)
+----------------------------------------------------------------------------------------------------
+Showing first 500 and last 100 merged tokens...
+
+ID    256: ' t'
+ID    257: ' a'
+ID    258: 'he'
+ID    259: 'in'
+ID    260: 're'
+ID    261: ' the'
+ID    262: 'on'
+ID    263: 'er'
+ID    264: ' s'
+ID    265: 'at'
+ID    266: ' o'
+ID    267: ' c'
+ID    268: 'en'
+ID    269: 'es'
+ID    270: ' w'
+ID    271: 'is'
+ID    272: 'nd'
+ID    273: 'it'
+ID    274: 'or'
+ID    275: ' p'
+ID    276: 'al'
+ID    277: ' b'
+ID    278: ' f'
+ID    279: 'an'
+ID    280: 'ed'
+ID    281: ' of'
+ID    282: 'ing'
+ID    283: ' in'
+ID    284: 'ou'
+ID    285: 'ar'
+ID    286: ' m'
+ID    287: ' to'
+ID    288: ' and'
+ID    289: 'ic'
+ID    290: ' d'
+ID    291: 'ion'
+ID    292: 'le'
+ID    293: 'ro'
+ID    294: 'as'
+ID    295: ' h'
+ID    296: ' th'
+ID    297: 'ent'
+ID    298: 'ct'
+ID    299: ' e'
+ID    300: 'il'
+ID    301: ' re'
+ID    302: 've'
+ID    303: 'om'
+ID    304: ' l'
+ID    305: 'st'
+ID    306: ' n'
+ID    307: '.\n'
+ID    308: '�'
+ID    309: ' is'
+ID    310: 'ly'
+ID    311: ' be'
+ID    312: 'se'
+ID    313: ' g'
+ID    314: ' T'
+ID    315: 'ol'
+ID    316: 'ation'
+ID    317: 'im'
+ID    318: 'id'
+ID    319: 'et'
+ID    320: 'ut'
+ID    321: 'ur'
+ID    322: 'ow'
+ID    323: 'ce'
+ID    324: 'ot'
+ID    325: 'ra'
+ID    326: 'ch'
+ID    327: ' for'
+ID    328: 'ig'
+ID    329: ' u'
+ID    330: ' y'
+ID    331: ' on'
+ID    332: ' that'
+ID    333: ' st'
+ID    334: ' A'
+ID    335: 'ver'
+ID    336: ' S'
+ID    337: 'ir'
+ID    338: ' I'
+ID    339: 'ay'
+ID    340: ' C'
+ID    341: 'ul'
+ID    342: 'am'
+ID    343: ' as'
+ID    344: 'ith'
+ID    345: ' are'
+ID    346: 'el'
+ID    347: ' pro'
+ID    348: ' you'
+ID    349: 'ad'
+ID    350: 'her'
+ID    351: ' an'
+ID    352: ' con'
+ID    353: ' with'
+ID    354: 'if'
+ID    355: ' or'
+ID    356: ' it'
+ID    357: ' wh'
+ID    358: ' al'
+ID    359: 'od'
+ID    360: 'ter'
+ID    361: ' The'
+ID    362: 'ge'
+ID    363: 'ment'
+ID    364: 'th'
+ID    365: ' M'
+ID    366: 'op'
+ID    367: 'ate'
+ID    368: 'ers'
+ID    369: 'ess'
+ID    370: ' de'
+ID    371: 'ill'
+ID    372: ' ('
+ID    373: 'ist'
+ID    374: ' he'
+ID    375: '’'
+ID    376: 'ies'
+ID    377: ' P'
+ID    378: 'ab'
+ID    379: ' ex'
+ID    380: 'ore'
+ID    381: ' su'
+ID    382: 'ect'
+ID    383: ' com'
+ID    384: ' we'
+ID    385: 'us'
+ID    386: ' ha'
+ID    387: 'ity'
+ID    388: ' B'
+ID    389: 'est'
+ID    390: 'ive'
+ID    391: 'ke'
+ID    392: 'ac'
+ID    393: 'res'
+ID    394: 'um'
+ID    395: 'rom'
+ID    396: ' v'
+ID    397: 'ld'
+ID    398: 'ant'
+ID    399: 'os'
+ID    400: ' can'
+ID    401: 'qu'
+ID    402: 'em'
+ID    403: ' by'
+ID    404: 'iv'
+ID    405: 'nt'
+ID    406: 'ain'
+ID    407: ' H'
+ID    408: ' at'
+ID    409: 'igh'
+ID    410: 'pp'
+ID    411: ' W'
+ID    412: 'ud'
+ID    413: ' ch'
+ID    414: ' from'
+ID    415: ' ne'
+ID    416: ' r'
+ID    417: 'ort'
+ID    418: 'oc'
+ID    419: 'and'
+ID    420: ' D'
+ID    421: ' was'
+ID    422: ' E'
+ID    423: ' se'
+ID    424: 'ial'
+ID    425: ' �'
+ID    426: 'ure'
+ID    427: ' le'
+ID    428: ' F'
+ID    429: 'un'
+ID    430: ' R'
+ID    431: 'art'
+ID    432: ' have'
+ID    433: 'ical'
+ID    434: ' not'
+ID    435: ' en'
+ID    436: ' sh'
+ID    437: 'og'
+ID    438: ' sp'
+ID    439: ' N'
+ID    440: 'ri'
+ID    441: ' G'
+ID    442: ' this'
+ID    443: '’s'
+ID    444: ' ab'
+ID    445: ' wor'
+ID    446: ' L'
+ID    447: 'ight'
+ID    448: 'rou'
+ID    449: 'The'
+ID    450: 'all'
+ID    451: 'pt'
+ID    452: 'ost'
+ID    453: 'ome'
+ID    454: 'red'
+ID    455: 'du'
+ID    456: 'out'
+ID    457: 'ich'
+ID    458: 'ions'
+ID    459: 'gh'
+ID    460: 'our'
+ID    461: ' im'
+ID    462: ' us'
+ID    463: 'ould'
+ID    464: ' pl'
+ID    465: 'per'
+ID    466: 'ine'
+ID    467: 'ther'
+ID    468: 'ated'
+ID    469: ' your'
+ID    470: 'ag'
+ID    471: 'ide'
+ID    472: 'act'
+ID    473: ' their'
+ID    474: 'ell'
+ID    475: 'ard'
+ID    476: 'ff'
+ID    477: 'ear'
+ID    478: ' int'
+ID    479: 'pl'
+ID    480: 'ast'
+ID    481: 'age'
+ID    482: 'ak'
+ID    483: ' k'
+ID    484: ' whe'
+ID    485: 'ans'
+ID    486: ' they'
+ID    487: 'ood'
+ID    488: 'ust'
+ID    489: ' O'
+ID    490: ' will'
+ID    491: ' which'
+ID    492: 'ec'
+ID    493: 'iz'
+ID    494: 'ous'
+ID    495: ' ad'
+ID    496: '20'
+ID    497: ' inc'
+ID    498: ' more'
+ID    499: 'ult'
+ID    500: ' all'
+ID    501: ' U'
+ID    502: ' cont'
+ID    503: ' dis'
+ID    504: ' comp'
+ID    505: 'cc'
+ID    506: 'end'
+ID    507: 'ib'
+ID    508: '”'
+ID    509: 'ru'
+ID    510: 'vel'
+ID    511: ' has'
+ID    512: 'ong'
+ID    513: ' In'
+ID    514: ' res'
+ID    515: 'ap'
+ID    516: 'ip'
+ID    517: 'so'
+ID    518: 'ater'
+ID    519: ' do'
+ID    520: 'ations'
+ID    521: 'orm'
+ID    522: 'ia'
+ID    523: 'ere'
+ID    524: 'ild'
+ID    525: 'ew'
+ID    526: 'are'
+ID    527: ' J'
+ID    528: 'able'
+ID    529: ' man'
+ID    530: 'ks'
+ID    531: ' cl'
+ID    532: ' Th'
+ID    533: 'ary'
+ID    534: ' other'
+ID    535: ' te'
+ID    536: 'ally'
+ID    537: 'ence'
+ID    538: 'ry'
+ID    539: 'ents'
+ID    540: 'ind'
+ID    541: ' but'
+ID    542: ' imp'
+ID    543: ' also'
+ID    544: 'ep'
+ID    545: 'ach'
+ID    546: 'ake'
+ID    547: ' per'
+ID    548: '19'
+ID    549: ' “'
+ID    550: ' one'
+ID    551: ' me'
+ID    552: 'reat'
+ID    553: 'ance'
+ID    554: 'ose'
+ID    555: 'ign'
+ID    556: 'ase'
+ID    557: ' were'
+ID    558: 'ass'
+ID    559: ' so'
+ID    560: ' j'
+ID    561: 'au'
+ID    562: ' out'
+ID    563: 'ress'
+ID    564: ' stud'
+ID    565: 'av'
+ID    566: "'s"
+ID    567: ' about'
+ID    568: 'very'
+ID    569: 'one'
+ID    570: 'ition'
+ID    571: 'ction'
+ID    572: ' tim'
+ID    573: 'ice'
+ID    574: ' un'
+ID    575: 'ace'
+ID    576: ' app'
+ID    577: ' part'
+ID    578: ' pe'
+ID    579: 'ok'
+ID    580: ' ar'
+ID    581: 'ount'
+ID    582: ' inf'
+ID    583: 'ber'
+ID    584: 'ens'
+ID    585: ' ev'
+ID    586: 'ord'
+ID    587: 'ory'
+ID    588: ' sy'
+ID    589: 'ack'
+ID    590: ' sc'
+ID    591: 'ike'
+ID    592: 'ire'
+ID    593: 'ame'
+ID    594: ' who'
+ID    595: 'ite'
+ID    596: 'ors'
+ID    597: 'ish'
+ID    598: ' comm'
+ID    599: ' them'
+ID    600: 'ang'
+ID    601: 'ue'
+ID    602: 'now'
+ID    603: ' St'
+ID    604: 'ound'
+ID    605: 'ces'
+ID    606: 'low'
+ID    607: 'ub'
+ID    608: ' pre'
+ID    609: ' It'
+ID    610: 'ree'
+ID    611: ' bec'
+ID    612: ' up'
+ID    613: 'ople'
+ID    614: 'ric'
+ID    615: 'olog'
+ID    616: ' may'
+ID    617: ' than'
+ID    618: ' qu'
+ID    619: 'ays'
+ID    620: 'iff'
+ID    621: 'ile'
+ID    622: ' year'
+ID    623: ' some'
+ID    624: ' rec'
+ID    625: ' his'
+ID    626: ' when'
+ID    627: 'ie'
+ID    628: 'ail'
+ID    629: ' K'
+ID    630: 'ings'
+ID    631: 'ates'
+ID    632: 'nder'
+ID    633: ' work'
+ID    634: ' how'
+ID    635: ' people'
+ID    636: 'ren'
+ID    637: ' into'
+ID    638: ' been'
+ID    639: ' tra'
+ID    640: 'mer'
+ID    641: ' time'
+ID    642: ' there'
+ID    643: ' its'
+ID    644: ' go'
+ID    645: ' over'
+ID    646: 'ough'
+ID    647: 'rit'
+ID    648: ' diff'
+ID    649: ' This'
+ID    650: ' use'
+ID    651: ' these'
+ID    652: ' ro'
+ID    653: 'rough'
+ID    654: ' col'
+ID    655: 'lud'
+ID    656: 'alth'
+ID    657: 'ause'
+ID    658: ' Ch'
+ID    659: 'ph'
+ID    660: ' our'
+ID    661: 'vers'
+ID    662: ' ag'
+ID    663: 'erv'
+ID    664: 'ual'
+ID    665: ' like'
+ID    666: 'ian'
+ID    667: 'te'
+ID    668: ' most'
+ID    669: 'ms'
+ID    670: ' ra'
+ID    671: ' sa'
+ID    672: 'ons'
+ID    673: ' cons'
+ID    674: ' know'
+ID    675: ' bl'
+ID    676: ' "'
+ID    677: 'll'
+ID    678: ' act'
+ID    679: ' bet'
+ID    680: 'ific'
+ID    681: 'row'
+ID    682: 'ook'
+ID    683: 'ove'
+ID    684: ' hel'
+ID    685: 'ning'
+ID    686: ' need'
+ID    687: 'ond'
+ID    688: 'ities'
+ID    689: 'int'
+ID    690: 'irst'
+ID    691: 'we'
+ID    692: ' tr'
+ID    693: 'tern'
+ID    694: 'velop'
+ID    695: 'ys'
+ID    696: 'les'
+ID    697: 'ject'
+ID    698: ' under'
+ID    699: ' new'
+ID    700: 'stem'
+ID    701: ' V'
+ID    702: 'lect'
+ID    703: ' child'
+ID    704: ' acc'
+ID    705: ' help'
+ID    706: 'ments'
+ID    707: ' des'
+ID    708: 'ffect'
+ID    709: 'ious'
+ID    710: 'lic'
+ID    711: ' Y'
+ID    712: ' if'
+ID    713: ' such'
+ID    714: ' includ'
+ID    715: ' tw'
+ID    716: 'ient'
+ID    717: ' would'
+ID    718: ' rel'
+ID    719: 'cess'
+ID    720: ' had'
+ID    721: 'ple'
+ID    722: ' what'
+ID    723: 'ool'
+ID    724: 'ob'
+ID    725: ' used'
+ID    726: ' any'
+ID    727: 'yp'
+ID    728: ' produ'
+ID    729: 'ating'
+ID    730: ' rep'
+ID    731: ' gen'
+ID    732: ' ph'
+ID    733: ' many'
+ID    734: ' develop'
+ID    735: 'ular'
+ID    736: 'ational'
+ID    737: '10'
+ID    738: 'ative'
+ID    739: 'hed'
+ID    740: ' fe'
+ID    741: ' through'
+ID    742: ' prov'
+ID    743: 'round'
+ID    744: 'ced'
+ID    745: ' pr'
+ID    746: ' only'
+ID    747: ' first'
+ID    748: ' di'
+ID    749: ' spec'
+ID    750: 'ov'
+ID    751: ' off'
+ID    752: ' ind'
+ID    753: ' am'
+ID    754: ' ac'
+ID    755: 'ise'
+
+... (skipped 64680 tokens) ...
+
+   ID  65436: ' Statewide'
+   ID  65437: ' colonised'
+   ID  65438: 'profit'
+   ID  65439: 'programs'
+   ID  65440: ' Intolerance'
+   ID  65441: ' unduly'
+   ID  65442: ' Patience'
+   ID  65443: ' Overcoming'
+   ID  65444: 'udders'
+   ID  65445: 'REF'
+   ID  65446: 'Conn'
+   ID  65447: ' hyperhidrosis'
+   ID  65448: ' galls'
+   ID  65449: '/social'
+   ID  65450: ' tallow'
+   ID  65451: ' registrar'
+   ID  65452: 'cheries'
+   ID  65453: ' moldy'
+   ID  65454: ' Veronica'
+   ID  65455: ' ARCH'
+   ID  65456: ' Bhai'
+   ID  65457: ' Hanford'
+   ID  65458: ' Marketplace'
+   ID  65459: ' nutritive'
+   ID  65460: ' mantras'
+   ID  65461: ' succumbing'
+   ID  65462: 'Meteor'
+   ID  65463: ' Rotation'
+   ID  65464: ' exemplar'
+   ID  65465: ' cellulitis'
+   ID  65466: '-union'
+   ID  65467: '-recorded'
+   ID  65468: ' stairway'
+   ID  65469: ' reunite'
+   ID  65470: 'Congenital'
+   ID  65471: ' scavenge'
+   ID  65472: 'ات'
+   ID  65473: ' Tallahassee'
+   ID  65474: 'Domain'
+   ID  65475: 'Combined'
+   ID  65476: 'directly'
+   ID  65477: ' erythrocytes'
+   ID  65478: ' Authentic'
+   ID  65479: ' REPORT'
+   ID  65480: ' corroborated'
+   ID  65481: ' emphatic'
+   ID  65482: ' brachial'
+   ID  65483: 'gorod'
+   ID  65484: 'GRAPHY'
+   ID  65485: ' sublimation'
+   ID  65486: ' Prosperity'
+   ID  65487: ' RSPB'
+   ID  65488: 'opteryx'
+   ID  65489: ' dimorphism'
+   ID  65490: 'IVERSITY'
+   ID  65491: ' omniscient'
+   ID  65492: ' Mecklenburg'
+   ID  65493: ' wholeheartedly'
+   ID  65494: '-Baptiste'
+   ID  65495: ',â'
+   ID  65496: '-charge'
+   ID  65497: '.However'
+   ID  65498: '/us'
+   ID  65499: 'Moral'
+   ID  65500: 'Rud'
+   ID  65501: 'Radi'
+   ID  65502: 'fever'
+   ID  65503: 'zah'
+   ID  65504: 'ionts'
+   ID  65505: 'owicz'
+   ID  65506: ' uh'
+   ID  65507: ' Baths'
+   ID  65508: ' Houd'
+   ID  65509: ' Dams'
+   ID  65510: ' DMS'
+   ID  65511: ' Eut'
+   ID  65512: ' Rhea'
+   ID  65513: ' shun'
+   ID  65514: ' Loma'
+   ID  65515: 'pload'
+   ID  65516: 'areg'
+   ID  65517: ' Khat'
+   ID  65518: ' trinity'
+   ID  65519: 'liche'
+   ID  65520: ' Yule'
+   ID  65521: ' slurred'
+   ID  65522: ' warhead'
+   ID  65523: ' finals'
+   ID  65524: ' Clifton'
+   ID  65525: 'Weak'
+   ID  65526: '-creat'
+⭐ ID  65527: '<|bos|>'
+⭐ ID  65528: '<|user_start|>'
+⭐ ID  65529: '<|user_end|>'
+⭐ ID  65530: '<|assistant_start|>'
+⭐ ID  65531: '<|assistant_end|>'
+⭐ ID  65532: '<|python_start|>'
+⭐ ID  65533: '<|python_end|>'
+⭐ ID  65534: '<|output_start|>'
+⭐ ID  65535: '<|output_end|>'

@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Read(//c/Users/wenming/.cache/nanochat/**)",
-      "*"
+      "*",
+      "Bash(python -c:*)"
     ],
     "deny": [],
     "ask": []

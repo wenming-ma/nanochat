@@ -29,13 +29,13 @@ print_banner()
 run = "dummy" # wandb run name default ("dummy" is special - we won't log to wandb)
 # Model architecture
 depth = 20 # the depth of the Transformer model to train, rest of the kwargs are derived
-max_seq_len = 2048 # max context length
+max_seq_len = 1024 # max context length
 # Training horizon. Only one of these 3 will be used, in this order of precedence.
 num_iterations = -1 # explicit number of steps of the optimization (-1 = disable)
 target_flops = -1.0 # calculate num_iterations to reach target_flops. Useful for scaling laws experiments (-1 = disable)
 target_param_data_ratio = 20 # calculate num_iterations to maintain fixed data:param ratio (Chinchilla=20) (-1 = disable)
 # Optimization
-device_batch_size = 32 # per-device batch size (set to not OOM)
+device_batch_size = 8 # per-device batch size (set to not OOM)
 total_batch_size = 524288 # total desired batch size, in #tokens
 embedding_lr = 0.2 # learning rate for the embedding parameters (Adam)
 unembedding_lr = 0.004 # learning rate for the unembedding parameters (Adam)
