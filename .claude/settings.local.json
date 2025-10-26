@@ -4,7 +4,13 @@
       "Read(//c/Users/wenming/.cache/nanochat/**)",
       "*",
       "Bash(python -c:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Read(//home/wenming/.cache/nanochat/**)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(rm:*)",
+      "Bash(python3:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []
