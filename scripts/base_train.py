@@ -11,6 +11,7 @@ torchrun --nproc_per_node=8 base_train.py
 import os
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import time
+import glob
 import wandb
 import torch
 
@@ -35,7 +36,7 @@ num_iterations = -1 # explicit number of steps of the optimization (-1 = disable
 target_flops = -1.0 # calculate num_iterations to reach target_flops. Useful for scaling laws experiments (-1 = disable)
 target_param_data_ratio = 20 # calculate num_iterations to maintain fixed data:param ratio (Chinchilla=20) (-1 = disable)
 # Optimization
-device_batch_size = 8 # per-device batch size (set to not OOM)
+device_batch_size = 4 # per-device batch size (set to not OOM)
 total_batch_size = 524288 # total desired batch size, in #tokens
 embedding_lr = 0.2 # learning rate for the embedding parameters (Adam)
 unembedding_lr = 0.004 # learning rate for the unembedding parameters (Adam)
@@ -48,8 +49,11 @@ eval_tokens = 10*524288 # number of tokens to evaluate val loss on (reduced from
 core_metric_every = 4000 # every how many steps to evaluate the core metric (reduced frequency)
 core_metric_max_per_task = 250 # examples per task in estimating the core metric (reduced from 500)
 sample_every = 4000 # every how many steps to sample from the model (reduced frequency)
-# Output
+# Output and checkpointing
 model_tag = "" # optionally override the model tag for the output checkpoint directory name
+save_every = 500 # save checkpoint every N steps (set to 0 to only save at end)
+keep_last_n_checkpoints = 3 # keep only the last N checkpoints to save disk space (set to -1 to keep all)
+resume = True # automatically resume from latest checkpoint if available
 # now allow CLI to override the settings via the configurator lol
 config_keys = [k for k,v in globals().items() if not k.startswith('_') and isinstance(v, (int, float, bool, str))]
 exec(open(os.path.join('nanochat', 'configurator.py')).read()) # overrides from command line or config file
@@ -130,8 +134,20 @@ print0(f"Total training FLOPs estimate: {num_flops_per_token * total_tokens:e}")
 optimizers = model.setup_optimizers(unembedding_lr=unembedding_lr, embedding_lr=embedding_lr, matrix_lr=matrix_lr, weight_decay=weight_decay)
 adamw_optimizer, muon_optimizer = optimizers
 
-# Initialize the DataLoaders for train/val
+# -----------------------------------------------------------------------------
+# Resume from checkpoint if available
+from nanochat.checkpoint_manager import resume_from_checkpoint
 base_dir = get_base_dir()
+output_dirname = model_tag if model_tag else f"d{depth}"
+checkpoint_dir = os.path.join(base_dir, "base_checkpoints", output_dirname)
+
+if resume:
+    start_step, _ = resume_from_checkpoint(checkpoint_dir, orig_model, optimizers, device)
+else:
+    start_step = 0
+    print0("Resume disabled, starting training from scratch...")
+
+# Initialize the DataLoaders for train/val
 tokens_dir = os.path.join(base_dir, "tokenized_data")
 train_loader = tokenizing_distributed_data_loader(device_batch_size, max_seq_len, split="train")
 build_val_loader = lambda: tokenizing_distributed_data_loader(device_batch_size, max_seq_len, split="val")
@@ -169,7 +185,7 @@ smooth_train_loss = 0 # EMA of training loss
 ema_beta = 0.9 # EMA decay factor
 total_training_time = 0 # total wall-clock time of training
 # note that we run +1 steps only so that we can eval and save at the end
-for step in range(num_iterations + 1):
+for step in range(start_step, num_iterations + 1):
     last_step = step == num_iterations
     flops_so_far = num_flops_per_token * total_batch_size * step
 
@@ -208,7 +224,7 @@ for step in range(num_iterations + 1):
 
     # once in a while: sample from the model (only on master process)
     # use the original uncompiled model because the inputs keep changing shape
-    if master_process and (last_step or (step > 0 and step % sample_every == 0)):
+    if master_process and (last_step or (step == 0 or step % sample_every == 0)):
         model.eval()
         prompts = [
             "The capital of France is",
@@ -227,10 +243,9 @@ for step in range(num_iterations + 1):
             print0(tokenizer.decode(sample[0]))
         model.train()
 
-    # save checkpoint at the end of the run (only on master process)
-    if master_process and last_step:
-        output_dirname = model_tag if model_tag else f"d{depth}" # e.g. d12
-        checkpoint_dir = os.path.join(base_dir, "base_checkpoints", output_dirname)
+    # save checkpoint periodically or at the end of the run (only on master process)
+    should_save = master_process and (last_step or (save_every > 0 and step > 0 and step % save_every == 0))
+    if should_save:
         save_checkpoint(
             checkpoint_dir,
             step,
@@ -238,12 +253,13 @@ for step in range(num_iterations + 1):
             [opt.state_dict() for opt in optimizers], # TODO: make sure saving across ranks is done correctly
             {
                 "step": step,
-                "val_bpb": val_bpb, # loss at last step
+                "val_bpb": val_bpb if 'val_bpb' in locals() else None, # loss at last step (may not be evaluated yet)
                 "model_config": model_config_kwargs,
                 "user_config": user_config, # inputs to the training script
                 "device_batch_size": device_batch_size,
                 "max_seq_len": max_seq_len,
-            }
+            },
+            keep_last_n=keep_last_n_checkpoints if keep_last_n_checkpoints > 0 else None
         )
 
     if last_step:

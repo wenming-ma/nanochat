@@ -20,7 +20,18 @@ def log0(message):
     if int(os.environ.get('RANK', 0)) == 0:
         logger.info(message)
 
-def save_checkpoint(checkpoint_dir, step, model_data, optimizer_data, meta_data):
+def save_checkpoint(checkpoint_dir, step, model_data, optimizer_data, meta_data, keep_last_n=None):
+    """
+    Save a checkpoint and optionally clean up old checkpoints.
+
+    Args:
+        checkpoint_dir: Directory to save checkpoint in
+        step: Training step number
+        model_data: Model state dict
+        optimizer_data: Optimizer state dict (or list of dicts)
+        meta_data: Metadata dict
+        keep_last_n: If specified, keep only the last N checkpoints (None = keep all)
+    """
     assert int(os.environ.get('RANK', 0)) == 0 # prevent footguns for now
     os.makedirs(checkpoint_dir, exist_ok=True)
     # Save the model state (parameters)
@@ -37,6 +48,33 @@ def save_checkpoint(checkpoint_dir, step, model_data, optimizer_data, meta_data)
     with open(meta_path, "w") as f:
         json.dump(meta_data, f, indent=2)
     log0(f"Saved metadata file to: {meta_path}")
+
+    # Clean up old checkpoints if requested
+    if keep_last_n is not None and keep_last_n > 0:
+        cleanup_old_checkpoints(checkpoint_dir, keep_last_n)
+
+
+def cleanup_old_checkpoints(checkpoint_dir, keep_last_n):
+    """
+    Remove old checkpoints, keeping only the last N.
+
+    Args:
+        checkpoint_dir: Directory containing checkpoints
+        keep_last_n: Number of most recent checkpoints to keep
+    """
+    checkpoint_files = sorted(glob.glob(os.path.join(checkpoint_dir, "model_*.pt")))
+    if len(checkpoint_files) > keep_last_n:
+        # Remove oldest checkpoints
+        for old_checkpoint in checkpoint_files[:-keep_last_n]:
+            step_num = old_checkpoint.split("_")[-1].split(".")[0]
+            for ext in ["model", "optim", "meta"]:
+                pattern = f"{ext}_{step_num}.*"
+                for f in glob.glob(os.path.join(checkpoint_dir, pattern)):
+                    try:
+                        os.remove(f)
+                        log0(f"Removed old checkpoint: {f}")
+                    except OSError as e:
+                        log0(f"Failed to remove {f}: {e}")
 
 
 def load_checkpoint(checkpoint_dir, step, device, load_optimizer=False):
@@ -115,6 +153,52 @@ def find_last_step(checkpoint_dir):
         raise FileNotFoundError(f"No checkpoints found in {checkpoint_dir}")
     last_step = int(max(os.path.basename(f).split("_")[-1].split(".")[0] for f in checkpoint_files))
     return last_step
+
+
+def resume_from_checkpoint(checkpoint_dir, model, optimizers, device):
+    """
+    Resume training from the latest checkpoint in the given directory.
+
+    Args:
+        checkpoint_dir: Directory containing checkpoints
+        model: The model to restore (should be the original uncompiled model)
+        optimizers: List of optimizers to restore
+        device: Device to load checkpoint onto
+
+    Returns:
+        tuple: (start_step, success) where start_step is the next step to train from,
+               and success indicates whether resume was successful
+    """
+    if not os.path.exists(checkpoint_dir):
+        log0("No checkpoint directory found, starting from scratch")
+        return 0, False
+
+    try:
+        resume_step = find_last_step(checkpoint_dir)
+        log0(f"Found checkpoint at step {resume_step}, resuming training...")
+
+        # Load model and optimizer states
+        model_data, optimizer_data, meta_data = load_checkpoint(
+            checkpoint_dir, resume_step, device, load_optimizer=True
+        )
+
+        # Restore model state (handle torch.compile's _orig_mod. prefix)
+        model_data = {k.lstrip("_orig_mod."): v for k, v in model_data.items()}
+        model.load_state_dict(model_data, strict=True, assign=True)
+
+        # Restore optimizer states
+        if optimizer_data is not None:
+            for i, opt in enumerate(optimizers):
+                opt.load_state_dict(optimizer_data[i])
+
+        start_step = resume_step + 1
+        log0(f"Successfully resumed from step {resume_step}, continuing from step {start_step}")
+        return start_step, True
+
+    except Exception as e:
+        log0(f"Failed to resume from checkpoint: {e}")
+        log0("Starting training from scratch...")
+        return 0, False
 
 # -----------------------------------------------------------------------------
 # convenience functions that take into account nanochat's directory structure
