@@ -48,7 +48,7 @@ eval_every = 500 # every how many steps to evaluate the model for val bpb (reduc
 eval_tokens = 10*524288 # number of tokens to evaluate val loss on (reduced from 20x to save memory)
 core_metric_every = 4000 # every how many steps to evaluate the core metric (reduced frequency)
 core_metric_max_per_task = 250 # examples per task in estimating the core metric (reduced from 500)
-sample_every = 4000 # every how many steps to sample from the model (reduced frequency)
+sample_every = 100 # every how many steps to sample from the model (reduced frequency)
 # Output and checkpointing
 model_tag = "" # optionally override the model tag for the output checkpoint directory name
 save_every = 500 # save checkpoint every N steps (set to 0 to only save at end)
@@ -121,7 +121,7 @@ elif target_param_data_ratio > 0:
     # calculate the number of iterations from the target param data ratio
     target_tokens = target_param_data_ratio * num_params
     num_iterations = target_tokens // total_batch_size
-    print0(f"Calculated number of iterations from target data:param ratio: {num_iterations:,}")
+    print0(f"Calculated number of iterations from target data-param ratio: {num_iterations:,}")
 else:
     raise ValueError("No training horizon specified")
 total_tokens = total_batch_size * num_iterations
@@ -224,7 +224,7 @@ for step in range(start_step, num_iterations + 1):
 
     # once in a while: sample from the model (only on master process)
     # use the original uncompiled model because the inputs keep changing shape
-    if master_process and (last_step or (step == 0 or step % sample_every == 0)):
+    if master_process and (step % sample_every == 0):
         model.eval()
         prompts = [
             "The capital of France is",
@@ -302,8 +302,8 @@ for step in range(start_step, num_iterations + 1):
     pct_done = 100 * step / num_iterations
     tok_per_sec = int(world_tokens_per_fwdbwd / dt)
     flops_per_sec = num_flops_per_token * total_batch_size / dt
-    promised_flops_per_sec_h100 = 989e12 * ddp_world_size # bfloat16 H100 SXM and without 2:4 sparsity
-    mfu = 100 * flops_per_sec / promised_flops_per_sec_h100 # in %
+    promised_flops_per_sec_4060ti = 22.06e12 * ddp_world_size # bfloat16 RTX 4060Ti (using FP16 TFLOPS as approximation)
+    mfu = 100 * flops_per_sec / promised_flops_per_sec_4060ti # in %
     if step > 10:
         total_training_time += dt # only count the time after the first 10 steps
     print0(f"step {step:05d}/{num_iterations:05d} ({pct_done:.2f}%) | loss: {debiased_smooth_loss:.6f} | lrm: {lrm:.2f} | dt: {dt * 1000:.2f}ms | tok/sec: {tok_per_sec:,} | mfu: {mfu:.2f} | total time: {total_training_time/60:.2f}m")

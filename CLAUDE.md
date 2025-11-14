@@ -311,11 +311,44 @@ Shards are cached to `$NANOCHAT_BASE_DIR` (default: `~/.cache/nanochat/`)
 
 ### Running on Different Hardware
 
+**Current Development Environment: RTX 4060Ti 16GB (Single GPU)**:
+
+This is the primary development hardware for this project. Key configuration for 16GB VRAM:
+
+```bash
+# Test run with tiny model (verify setup works)
+python -m scripts.base_train -- --depth=4 --device_batch_size=1 --max_seq_len=512
+
+# Small practical model (~150M params, ~30-50 hours training)
+python -m scripts.base_train -- --depth=12 --device_batch_size=1 --max_seq_len=1024
+
+# Medium model (~400M params, may be near memory limit)
+python -m scripts.base_train -- --depth=18 --device_batch_size=1 --max_seq_len=1024
+
+# Maximum size (depth=20, 561M params - may OOM, reduce max_seq_len if needed)
+python -m scripts.base_train -- --depth=20 --device_batch_size=1 --max_seq_len=512
+```
+
+**Important notes for 16GB single GPU**:
+- Always use `device_batch_size=1` (cannot go higher without OOM)
+- Gradient accumulation will be 512-524 steps (automatic, to maintain total_batch_size=524288)
+- Training time: ~8x slower than 8xH100 (so 4-hour speedrun becomes ~32 hours)
+- Cannot train depth=26 or depth=32 models (require >16GB VRAM)
+- Monitor with `nvidia-smi` during first few steps to verify no OOM
+- If OOM occurs: reduce `--max_seq_len` to 512 or even 256
+- Recommended practical range: depth=12-18 for reasonable training times
+
+**Memory estimation**:
+- depth=4: ~2-3GB (testing only)
+- depth=12: ~5-8GB (good for experimentation)
+- depth=18: ~12-14GB (practical maximum)
+- depth=20: ~14-16GB (may OOM with max_seq_len=1024, use 512 instead)
+
 **8xA100 (vs 8xH100)**:
 - Works out of the box, slightly slower training
 - No hyperparameter changes needed
 
-**Single GPU**:
+**Single GPU (General)**:
 - Omit `torchrun` from commands
 - Training will be 8x slower (sequential gradient accumulation)
 - Results will be nearly identical

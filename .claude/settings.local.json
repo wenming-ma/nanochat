@@ -20,9 +20,17 @@
       "Bash(uv pip install:*)",
       "Bash(python:*)",
       "Bash(nvidia-smi:*)",
-      "Bash(kill:*)"
+      "Bash(kill:*)",
+      "Bash(/tmp/test_execute.sh)",
+      "Bash(echo:*)",
+      "Bash(source /tmp/test_execute.sh)"
     ],
     "deny": [],
-    "ask": []
-  }
+    "ask": [],
+    "additionalDirectories": [
+      "/home/wenming/projects/transformers",
+      "/home/wenming/projects/trl"
+    ]
+  },
+  "outputStyle": "default"
 }
